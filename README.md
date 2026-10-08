@@ -87,7 +87,14 @@ Spanish for English speakers, 3 units / 7 skills, two standard lessons + one leg
 - Streak uses `last_activity_date` vs today (plus `day_offset` for demos).
 - Original owl SVG and Nunito — no copied Duolingo assets.
 
+## Deployed demo
+
+- App: https://duolingo-web.vercel.app
+- API: https://duolingo-web-api.vercel.app (`/health`, `/docs`, `/api/v1/...`)
+
+SQLite on Vercel lives in `/tmp` and reseeds on a cold start. For durable progress, point `DB_PATH` at a Railway volume instead.
+
 ## Deploy
 
-- **Frontend:** Vercel, root `frontend/`. Set `BACKEND_URL` to the public API origin (used by Next rewrites).
-- **Backend:** Railway/Render, root `backend/`. Persistent volume for `app.db`. Set `FRONTEND_ORIGIN` to the Vercel URL (comma-separated). Start: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
+- **Frontend:** Vercel, directory `frontend/`. Set `BACKEND_URL` to the API origin.
+- **Backend:** Vercel FastAPI (`backend/`, `server.py` entrypoint) or Railway with `uvicorn app.main:app --host 0.0.0.0 --port $PORT` and a volume for `app.db`. Set `FRONTEND_ORIGIN` to the app URL.
