@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+:root {
+  --green: #58cc02;
+  --green-lip: #58a700;
+  --green-tint: #d7ffb8;
+  --blue: #1cb0f6;
+  --blue-lip: #1899d6;
+  --orange: #ff9600;
+  --orange-lip: #e07700;
+  --red: #ea2b2b;
+  --red-lip: #c42020;
+  --red-tint: #ffdfdf;
+  --gold: #ffc800;
+  --gold-lip: #e5a100;
+  --snow: #f7f7f7;
+  --border: #e5e5e5;
+  --text: #4b4b4b;
+  --ink: #3c3c3c;
+  --muted: #777;
+  --surface: #ffffff;
+  --locked: #e5e5e5;
+  --background: #f7f7f7;
+  --foreground: #3c3c3c;
+  --font-sans: var(--font-nunito);
+}
+
+[data-theme="dark"] {
+  --snow: #131f24;
+  --surface: #131f24;
+  --border: #37464f;
+  --text: #dce6ec;
+  --ink: #ffffff;
+  --muted: #8aa0ab;
+  --locked: #37464f;
+  --background: #131f24;
+  --foreground: #ffffff;
+}
+
+html,
+body {
+  background: var(--snow);
+  color: var(--ink);
+  font-family: var(--font-nunito), Nunito, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--green-tint);
+  color: var(--ink);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.bg-green { background-color: var(--green); }
+.bg-green-tint { background-color: var(--green-tint); }
+.bg-blue { background-color: var(--blue); }
+.bg-red { background-color: var(--red); }
+.bg-red-tint { background-color: var(--red-tint); }
+.bg-gold { background-color: var(--gold); }
+.bg-snow { background-color: var(--snow); }
+.bg-surface { background-color: var(--surface); }
+.text-green { color: var(--green); }
+.text-green-lip { color: var(--green-lip); }
+.text-blue { color: var(--blue); }
+.text-orange { color: var(--orange); }
+.text-red { color: var(--red); }
+.text-gold { color: var(--gold); }
+.text-ink { color: var(--ink); }
+.text-muted { color: var(--muted); }
+.border-border { border-color: var(--border); }
+.border-blue { border-color: var(--blue); }
+.border-green { border-color: var(--green); }
+.border-red { border-color: var(--red); }
+.border-gold { border-color: var(--gold); }
+.border-white\/40 { border-color: rgb(255 255 255 / 0.4); }
+
+@keyframes duo-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.duo-bounce { animation: duo-bounce 1.2s ease-in-out infinite; }
+
+@keyframes drawer-up {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.drawer-in { animation: drawer-up 0.22s cubic-bezier(0.2, 0, 0, 1); }
