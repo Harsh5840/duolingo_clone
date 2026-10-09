@@ -5,22 +5,22 @@ import { useState } from "react";
 import { refillHearts } from "@/app/actions";
 import { DuoButton } from "./duo-button";
 
-export function RefillButton() {
+export function RefillButton({ compact = false }: { compact?: boolean }) {
   const router = useRouter();
   const [msg, setMsg] = useState("");
   return (
     <>
       <DuoButton
-        className="mt-6"
+        className={compact ? "h-10 px-4 text-[13px]" : "mt-6"}
         onClick={async () => {
           await refillHearts();
           setMsg("Hearts refilled. Ready for another lesson!");
           router.refresh();
         }}
       >
-        Practice to refill
+        {compact ? "Refill" : "Practice to refill"}
       </DuoButton>
-      {msg ? <p className="mt-4 font-bold text-green">{msg}</p> : null}
+      {msg && !compact ? <p className="mt-4 font-bold text-green">{msg}</p> : null}
     </>
   );
 }

@@ -85,7 +85,7 @@ Spanish for English speakers, 3 units / 7 skills, two standard lessons + one leg
 - Speech recognition, Super IAP, and friends are “Coming soon” routes.
 - Hearts regenerate 1 per 4 hours, or instantly via Practice.
 - Streak uses `last_activity_date` vs today (plus `day_offset` for demos).
-- Original owl SVG and Nunito — no copied Duolingo assets.
+- Duo path character is the official active-path SVG; audio uses the browser `speechSynthesis` API.
 
 ## Deployed demo
 

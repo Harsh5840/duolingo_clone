@@ -11,6 +11,9 @@ export function SettingsForm({ me }: { me: Me }) {
   const [msg, setMsg] = useState("");
 
   async function patch(body: { daily_goal_xp?: number; theme?: string }) {
+    if (body.theme === "dark" || body.theme === "light") {
+      document.documentElement.setAttribute("data-theme", body.theme);
+    }
     await saveSettings(body);
     setMsg("Saved");
     router.refresh();

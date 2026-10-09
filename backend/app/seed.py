@@ -89,22 +89,108 @@ EX = {
         ("multiple_choice", "“Alto” means…", "tall", {"options": ["tall", "red", "slow"]}),
         ("word_bank", "Translate: She is tall", "Ella es alta", {"bank": ["Ella", "es", "alta", "alto", "El"]}),
         ("type_answer", "Type “small” in Spanish.", "pequeño", {}),
+        ("multiple_choice", "“Bonito” means…", "pretty", {"options": ["pretty", "angry", "late"]}),
+        ("word_bank", "Translate: A big dog", "Un perro grande", {"bank": ["Un", "perro", "grande", "gato", "una"]}),
+    ],
+    "transport": [
+        ("multiple_choice", "Select “bus”.", "autobús", {"options": ["autobús", "tren", "coche"]}),
+        ("word_bank", "Translate: The train", "El tren", {"bank": ["El", "tren", "La", "bus"]}),
+        ("match_pairs", "Match vehicles", "", {"pairs": [["autobús", "bus"], ["tren", "train"], ["coche", "car"]]}),
+        ("fill_blank", "Complete: El ___ es rojo", "coche", {"sentence": "El ___ es rojo", "options": ["coche", "agua", "mesa"]}),
+        ("type_answer", "Type “ticket” in Spanish.", "boleto", {}),
+        ("multiple_choice", "“Aeropuerto” means…", "airport", {"options": ["airport", "station", "hotel"]}),
+        ("word_bank", "Translate: Where is the station?", "¿Dónde está la estación?", {"bank": ["¿Dónde", "está", "la", "estación?", "el"]}),
+        ("type_answer", "Type “train” in Spanish.", "tren", {}),
+        ("multiple_choice", "Select “taxi”.", "taxi", {"options": ["taxi", "pan", "gato"]}),
+        ("word_bank", "Translate: I take the bus", "Tomo el autobús", {"bank": ["Tomo", "el", "autobús", "la", "tren"]}),
+    ],
+    "hotel": [
+        ("multiple_choice", "Select “hotel”.", "hotel", {"options": ["hotel", "casa", "tienda"]}),
+        ("word_bank", "Translate: A room please", "Una habitación por favor", {"bank": ["Una", "habitación", "por", "favor", "mesa"]}),
+        ("match_pairs", "Match hotel words", "", {"pairs": [["habitación", "room"], ["llave", "key"], ["reserva", "reservation"]]}),
+        ("fill_blank", "Complete: La ___ por favor", "llave", {"sentence": "La ___ por favor", "options": ["llave", "manzana", "calle"]}),
+        ("type_answer", "Type “room” in Spanish.", "habitación", {}),
+        ("multiple_choice", "“¿Hay wifi?” means…", "Is there wifi?", {"options": ["Is there wifi?", "Where is it?", "How much?"]}),
+        ("word_bank", "Translate: I have a reservation", "Tengo una reserva", {"bank": ["Tengo", "una", "reserva", "un", "hotel"]}),
+        ("type_answer", "Type “key” in Spanish.", "llave", {}),
+        ("multiple_choice", "Select “elevator”.", "ascensor", {"options": ["ascensor", "ventana", "plato"]}),
+        ("word_bank", "Translate: The bathroom", "El baño", {"bank": ["El", "baño", "La", "cama"]}),
+    ],
+    "numbers": [
+        ("multiple_choice", "Select “one”.", "uno", {"options": ["uno", "dos", "tres"]}),
+        ("word_bank", "Translate: Two apples", "Dos manzanas", {"bank": ["Dos", "manzanas", "Uno", "pan"]}),
+        ("match_pairs", "Match numbers", "", {"pairs": [["uno", "one"], ["dos", "two"], ["tres", "three"]]}),
+        ("fill_blank", "Complete: Tengo ___ gatos", "tres", {"sentence": "Tengo ___ gatos", "options": ["tres", "agua", "alto"]}),
+        ("type_answer", "Type “five” in Spanish.", "cinco", {}),
+        ("multiple_choice", "“Diez” means…", "ten", {"options": ["ten", "two", "six"]}),
+        ("word_bank", "Translate: Four coffees", "Cuatro cafés", {"bank": ["Cuatro", "cafés", "Tres", "agua"]}),
+        ("type_answer", "Type “eight” in Spanish.", "ocho", {}),
+        ("multiple_choice", "Select “seven”.", "siete", {"options": ["siete", "seis", "nueve"]}),
+        ("word_bank", "Translate: I have two", "Tengo dos", {"bank": ["Tengo", "dos", "uno", "tres"]}),
+    ],
+    "time": [
+        ("multiple_choice", "Select “today”.", "hoy", {"options": ["hoy", "ayer", "mañana"]}),
+        ("word_bank", "Translate: What time is it?", "¿Qué hora es?", {"bank": ["¿Qué", "hora", "es?", "día", "está"]}),
+        ("match_pairs", "Match time words", "", {"pairs": [["hoy", "today"], ["mañana", "tomorrow"], ["ayer", "yesterday"]]}),
+        ("fill_blank", "Complete: Son las ___", "tres", {"sentence": "Son las ___", "options": ["tres", "gato", "mesa"]}),
+        ("type_answer", "Type “hour” in Spanish.", "hora", {}),
+        ("multiple_choice", "“Ahora” means…", "now", {"options": ["now", "never", "soon"]}),
+        ("word_bank", "Translate: See you tomorrow", "Hasta mañana", {"bank": ["Hasta", "mañana", "hoy", "ayer"]}),
+        ("type_answer", "Type “tomorrow” in Spanish.", "mañana", {}),
+        ("multiple_choice", "Select “night”.", "noche", {"options": ["noche", "sol", "pan"]}),
+        ("word_bank", "Translate: Good night", "Buenas noches", {"bank": ["Buenas", "noches", "días", "Hola"]}),
+    ],
+    "shopping": [
+        ("multiple_choice", "Select “how much?”", "¿Cuánto cuesta?", {"options": ["¿Cuánto cuesta?", "¿Dónde está?", "¿Cómo estás?"]}),
+        ("word_bank", "Translate: I want this", "Quiero esto", {"bank": ["Quiero", "esto", "eso", "agua"]}),
+        ("match_pairs", "Match shopping", "", {"pairs": [["tienda", "store"], ["dinero", "money"], ["barato", "cheap"]]}),
+        ("fill_blank", "Complete: Es muy ___", "caro", {"sentence": "Es muy ___", "options": ["caro", "tren", "madre"]}),
+        ("type_answer", "Type “store” in Spanish.", "tienda", {}),
+        ("multiple_choice", "“Barato” means…", "cheap", {"options": ["cheap", "heavy", "cold"]}),
+        ("word_bank", "Translate: How much is it?", "¿Cuánto cuesta?", {"bank": ["¿Cuánto", "cuesta?", "está", "el"]}),
+        ("type_answer", "Type “money” in Spanish.", "dinero", {}),
+        ("multiple_choice", "Select “expensive”.", "caro", {"options": ["caro", "rojo", "alto"]}),
+        ("word_bank", "Translate: I pay cash", "Pago en efectivo", {"bank": ["Pago", "en", "efectivo", "el", "con"]}),
+    ],
+    "weather": [
+        ("multiple_choice", "Select “sun”.", "sol", {"options": ["sol", "lluvia", "nieve"]}),
+        ("word_bank", "Translate: It is cold", "Hace frío", {"bank": ["Hace", "frío", "calor", "sol"]}),
+        ("match_pairs", "Match weather", "", {"pairs": [["sol", "sun"], ["lluvia", "rain"], ["nieve", "snow"]]}),
+        ("fill_blank", "Complete: Hace ___", "calor", {"sentence": "Hace ___", "options": ["calor", "mesa", "padre"]}),
+        ("type_answer", "Type “rain” in Spanish.", "lluvia", {}),
+        ("multiple_choice", "“Hace calor” means…", "It is hot", {"options": ["It is hot", "It is late", "I am hungry"]}),
+        ("word_bank", "Translate: It is raining", "Está lloviendo", {"bank": ["Está", "lloviendo", "hace", "sol"]}),
+        ("type_answer", "Type “snow” in Spanish.", "nieve", {}),
+        ("multiple_choice", "Select “wind”.", "viento", {"options": ["viento", "libro", "silla"]}),
+        ("word_bank", "Translate: It is sunny", "Hace sol", {"bank": ["Hace", "sol", "frío", "nieve"]}),
     ],
 }
 
 UNITS = [
-    (1, "Order in a cafe", "Greet people and ask for food", "#58CC02", [
+    (1, "Compare travel experiences", "Greet people and ask for food", "#58CC02", [
         ("Greetings", "Say hello and goodbye", "chat", "greetings"),
         ("Phrases", "Introduce yourself", "speech", "phrases"),
         ("Food", "Order something to eat", "apple", "food"),
     ]),
-    (2, "Get around", "Ask for directions and sit down", "#1CB0F6", [
+    (2, "Ask about transportation", "Buses, trains, and tickets", "#CE82FF", [
         ("Directions", "Turn left, go straight", "map", "directions"),
+        ("Transport", "Bus, train, taxi, airport", "bus", "transport"),
+    ]),
+    (3, "Reserve a hotel room", "Rooms, keys, and the bill", "#FF9600", [
+        ("Hotel", "Check in and ask for a room", "bed", "hotel"),
         ("Cafe", "Tables, waiters, the bill", "mug", "cafe"),
     ]),
-    (3, "People", "Talk about family and looks", "#CE82FF", [
+    (4, "Talk about people", "Family and how they look", "#1CB0F6", [
         ("Family", "Parents and siblings", "home", "family"),
         ("Descriptions", "Big, small, pretty, tall", "star", "descriptions"),
+    ]),
+    (5, "Tell the time", "Numbers, hours, and weather", "#FF4B4B", [
+        ("Numbers", "Count from one to ten", "star", "numbers"),
+        ("Time", "Today, tomorrow, what time", "clock", "time"),
+        ("Weather", "Hot, cold, rain, sun", "sun", "weather"),
+    ]),
+    (6, "Go shopping", "Ask the price and pay", "#58CC02", [
+        ("Shopping", "Stores, money, cheap or expensive", "bag", "shopping"),
     ]),
 ]
 
@@ -151,11 +237,11 @@ def seed(db: Session) -> None:
             skill = Skill(unit=unit, index=s_index, name=sname, description=sdesc, icon=icon)
             db.add(skill)
             rows = EX[key]
-            for li in range(2):
+            for li in range(3):
                 lesson = Lesson(skill=skill, index=li, kind="standard", xp_reward=10)
                 db.add(lesson)
                 rotated = rows[li:] + rows[:li]
-                _add_exercises(db, lesson, rotated, 6)
+                _add_exercises(db, lesson, rotated, min(8, len(rotated)))
             legendary = Lesson(skill=skill, index=0, kind="legendary", xp_reward=20)
             db.add(legendary)
             _add_exercises(db, legendary, rows, 5)

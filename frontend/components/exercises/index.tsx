@@ -6,28 +6,38 @@ import type { Exercise } from "@/lib/api";
 export function ExerciseBody({
   exercise,
   onCanCheck,
+  locked = false,
 }: {
   exercise: Exercise;
   onCanCheck: (ok: boolean, value: unknown) => void;
+  locked?: boolean;
 }) {
   if (exercise.type === "multiple_choice" || exercise.type === "fill_blank") {
-    return <ChoiceExercise exercise={exercise} onCanCheck={onCanCheck} />;
+    return <ChoiceExercise exercise={exercise} onCanCheck={onCanCheck} locked={locked} />;
   }
   if (exercise.type === "word_bank") {
-    return <WordBankExercise exercise={exercise} onCanCheck={onCanCheck} />;
+    return <WordBankExercise exercise={exercise} onCanCheck={onCanCheck} locked={locked} />;
   }
   if (exercise.type === "match_pairs") {
-    return <MatchPairsExercise exercise={exercise} onCanCheck={onCanCheck} />;
+    return <MatchPairsExercise exercise={exercise} onCanCheck={onCanCheck} locked={locked} />;
   }
-  return <TypeAnswerExercise exercise={exercise} onCanCheck={onCanCheck} />;
+  return <TypeAnswerExercise exercise={exercise} onCanCheck={onCanCheck} locked={locked} />;
+}
+
+function chip(active: boolean) {
+  return `rounded-[12px] border-2 px-4 py-3.5 text-left text-lg font-bold shadow-[0_2px_0_var(--border)] active:translate-y-0.5 active:shadow-none ${
+    active ? "border-selected bg-selected text-blue shadow-[0_2px_0_var(--selected-border)]" : "border-border bg-surface"
+  }`;
 }
 
 function ChoiceExercise({
   exercise,
   onCanCheck,
+  locked,
 }: {
   exercise: Exercise;
   onCanCheck: (ok: boolean, value: unknown) => void;
+  locked: boolean;
 }) {
   const options = (exercise.payload.options as string[]) || [];
   const sentence = (exercise.payload.sentence as string) || "";
@@ -53,15 +63,16 @@ function ChoiceExercise({
           <button
             key={opt}
             type="button"
+            disabled={locked}
             onClick={() => {
               setPicked(opt);
               onCanCheck(true, opt);
             }}
-            className={`rounded-2xl border-2 px-4 py-4 text-left text-lg font-bold shadow-[0_4px_0_var(--border)] active:translate-y-1 active:shadow-none ${
-              picked === opt ? "border-blue bg-[#ddf4ff] text-blue" : "border-border bg-surface"
-            }`}
+            className={chip(picked === opt)}
           >
-            <span className="mr-3 text-muted">{i + 1}</span>
+            <span className="mr-3 inline-grid h-8 w-8 place-items-center rounded-[8px] border-2 border-current text-sm font-extrabold text-hint">
+              {i + 1}
+            </span>
             {opt}
           </button>
         ))}
@@ -73,19 +84,22 @@ function ChoiceExercise({
 function WordBankExercise({
   exercise,
   onCanCheck,
+  locked,
 }: {
   exercise: Exercise;
   onCanCheck: (ok: boolean, value: unknown) => void;
+  locked: boolean;
 }) {
   const bank = (exercise.payload.bank as string[]) || [];
   const [used, setUsed] = useState<number[]>([]);
   function pick(i: number) {
-    if (used.includes(i)) return;
+    if (locked || used.includes(i)) return;
     const next = [...used, i];
     setUsed(next);
     onCanCheck(next.length > 0, next.map((n) => bank[n]));
   }
   function drop(i: number) {
+    if (locked) return;
     const next = used.filter((n) => n !== i);
     setUsed(next);
     onCanCheck(next.length > 0, next.map((n) => bank[n]));
@@ -94,25 +108,14 @@ function WordBankExercise({
     <div>
       <div className="mb-8 flex min-h-16 flex-wrap gap-2 border-b-2 border-border pb-4">
         {used.map((i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => drop(i)}
-            className="rounded-xl border-2 border-border bg-surface px-3 py-2 font-bold shadow-[0_2px_0_var(--border)]"
-          >
+          <button key={i} type="button" onClick={() => drop(i)} className={chip(false)}>
             {bank[i]}
           </button>
         ))}
       </div>
       <div className="flex flex-wrap justify-center gap-2">
         {bank.map((w, i) => (
-          <button
-            key={i}
-            type="button"
-            disabled={used.includes(i)}
-            onClick={() => pick(i)}
-            className="rounded-xl border-2 border-border bg-surface px-3 py-2 font-bold shadow-[0_2px_0_var(--border)] disabled:opacity-30"
-          >
+          <button key={i} type="button" disabled={used.includes(i) || locked} onClick={() => pick(i)} className={`${chip(false)} disabled:opacity-25`}>
             {w}
           </button>
         ))}
@@ -124,9 +127,11 @@ function WordBankExercise({
 function MatchPairsExercise({
   exercise,
   onCanCheck,
+  locked,
 }: {
   exercise: Exercise;
   onCanCheck: (ok: boolean, value: unknown) => void;
+  locked: boolean;
 }) {
   const left = useMemo(() => shuffle([...(exercise.payload.left as string[])]), [exercise.id]);
   const right = useMemo(() => shuffle([...(exercise.payload.right as string[])]), [exercise.id]);
@@ -136,6 +141,7 @@ function MatchPairsExercise({
   const [matched, setMatched] = useState<[string, string][]>([]);
 
   function choose(side: "l" | "r", value: string) {
+    if (locked) return;
     if (matched.some((m) => m[0] === value || m[1] === value)) return;
     if (!sel || sel.side === side) {
       setSel({ side, value });
@@ -156,24 +162,12 @@ function MatchPairsExercise({
     <div className="grid grid-cols-2 gap-4">
       <div className="flex flex-col gap-3">
         {left.map((v) => (
-          <PairChip
-            key={v}
-            label={v}
-            active={sel?.value === v}
-            done={matched.some((m) => m[0] === v || m[1] === v)}
-            onClick={() => choose("l", v)}
-          />
+          <PairChip key={v} label={v} active={sel?.value === v} done={matched.some((m) => m[0] === v || m[1] === v)} onClick={() => choose("l", v)} />
         ))}
       </div>
       <div className="flex flex-col gap-3">
         {right.map((v) => (
-          <PairChip
-            key={v}
-            label={v}
-            active={sel?.value === v}
-            done={matched.some((m) => m[0] === v || m[1] === v)}
-            onClick={() => choose("r", v)}
-          />
+          <PairChip key={v} label={v} active={sel?.value === v} done={matched.some((m) => m[0] === v || m[1] === v)} onClick={() => choose("r", v)} />
         ))}
       </div>
     </div>
@@ -192,14 +186,7 @@ function PairChip({
   onClick: () => void;
 }) {
   return (
-    <button
-      type="button"
-      disabled={done}
-      onClick={onClick}
-      className={`rounded-2xl border-2 px-3 py-3 font-bold shadow-[0_4px_0_var(--border)] disabled:opacity-30 ${
-        active ? "border-blue bg-[#ddf4ff] text-blue" : "border-border"
-      }`}
-    >
+    <button type="button" disabled={done} onClick={onClick} className={`${chip(active)} disabled:opacity-30`}>
       {label}
     </button>
   );
@@ -208,21 +195,24 @@ function PairChip({
 function TypeAnswerExercise({
   exercise,
   onCanCheck,
+  locked,
 }: {
   exercise: Exercise;
   onCanCheck: (ok: boolean, value: unknown) => void;
+  locked: boolean;
 }) {
   const hint = (exercise.payload.hint as string) || "";
   return (
     <div>
       <input
         autoFocus
+        disabled={locked}
         className="w-full border-0 border-b-2 border-border bg-transparent py-3 text-2xl font-bold outline-none focus:border-blue"
         placeholder="Type in Spanish"
         aria-label="Answer"
         onChange={(e) => onCanCheck(e.target.value.trim().length > 0, e.target.value)}
       />
-      {hint ? <p className="mt-2 text-sm text-muted">{hint}</p> : null}
+      {hint ? <p className="mt-2 text-sm font-bold text-muted">{hint}</p> : null}
     </div>
   );
 }

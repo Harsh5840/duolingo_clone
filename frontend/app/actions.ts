@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { spost } from "@/lib/server";
 
@@ -27,6 +28,9 @@ export async function saveSettings(body: { daily_goal_xp?: number; theme?: strin
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Could not save");
+  if (body.theme === "dark" || body.theme === "light") {
+    (await cookies()).set("theme", body.theme, { path: "/", maxAge: 60 * 60 * 24 * 365, sameSite: "lax" });
+  }
 }
 
 export async function advanceDay() {
